@@ -5,7 +5,8 @@ const config = {
 	entry:  './src/index.js', // This is a relatiee path
 	output: {
 		path: path.resolve( __dirname, 'build'), // Thist has to be an absoulte path hence using path
-		filename: 'bundle.js'
+		filename: 'bundle.js',
+		publicPath: 'build/'	// Uses this to correct image file path names
 	},
 	module: { 		// Pre webpack2 this was called loader
 		rules: [
@@ -19,16 +20,15 @@ const config = {
 				}),
 				test: /\.css$/
 			},
-			{
-				test: /\.(jpe?g|png|gif|svg)$/,
-				use: [ 
-					{
-						loader: 'url-loader',
-						options: { limit: 40000 } // Any images larger than 40kB save as a separate file, otherwise include in bundle.js
-					},
-					'image-webpack-loader'
-				]
-			}
+			// {
+			// 	test: /\.(jpe?g|png|gif|svg)$/,
+			// 	use: [ 
+			// 	{ 
+			// 		loader: 'url-loader',
+			// 		options: { limit: 40000 }
+			// 	}, 
+			// 	'image-webpack-loader' ]
+			// }
 		]
 	},
 	plugins: [ // This looks for any files that were transformed by ExtractTextPlugin and puts them into style.css
